@@ -1,10 +1,12 @@
 <template>
-  <h1 class="text-3xl font-bold underline bg-yellow-300">
-    Hello world!
-  </h1>
+  <router-view></router-view>
+
+  <!-- <RouterLink to="/">link</RouterLink> -->
 </template>
 
 <script setup>
+import { RouterLink } from 'vue-router';
+
 
 </script>
 
