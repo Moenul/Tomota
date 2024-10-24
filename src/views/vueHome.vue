@@ -1,5 +1,5 @@
 <template>
-    <TopNav/>
+    <TopNav class="hidden md:block"></TopNav>
     <Navbar/>
     <header class="container">
         <h1>Header Section</h1>

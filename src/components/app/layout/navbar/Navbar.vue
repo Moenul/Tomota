@@ -8,13 +8,7 @@
             </div>
 
             <div class="search_section hidden md:flex items-center w-2/5">
-                <div class="searchBar w-full h-10 px-2 rounded bg-white flex items-center overflow-hidden">
-                    <div class="icon text-slate-500 w-8 px-1 text-lg">
-                        <Icon icon="mage:search"/>
-                    </div>
-                    <input type="text" class="w-full px-1 py-2 text-slate-800 outline-none" placeholder="Search ..">
-                    <button type="submit" class="text-sm font-medium px-4 py-1 bg-secondary text-black rounded-sm hover:bg-orange-400">Search</button>
-                </div>
+                <SearchBar/>
             </div>
 
             <div class="buttons flex items-center gap-4 text-3xl text-slate-50">
@@ -55,7 +49,7 @@ import { Icon } from '@iconify/vue';
 import Logo from '../../Logo.vue';
 import { useModal } from '../../../../composable/utillity/useModal';
 import CartModal from './CartModal.vue';
-
+import SearchBar from './SearchBar.vue';
 
 const {isOpen, open, close} = useModal();
 
