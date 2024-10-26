@@ -1,9 +1,11 @@
 <template>
     <TopNav class="hidden md:block"></TopNav>
     <Navbar/>
-    <header class="container">
-        <h1>Header Section</h1>
-    </header>
+    <div class="content_wrapper container grid md:flex md:gap-8">
+        <Sidebar/>
+        <MainLayout/>
+    </div>
+    
 
     <div class="container min-h-[1000px]">
         <p class="text-3xl text-violet-600">Home Page</p>
@@ -27,6 +29,8 @@ import TopNav from '../components/app/layout/navbar/TopNav.vue';
 import BottomNav from '../components/app/layout/navbar/BottomNav.vue';
 import { useProductStore } from '../stores/storeProduct';
 import { Icon } from '@iconify/vue/dist/iconify.js';
+import Sidebar from '../components/app/layout/sidebar/Sidebar.vue';
+import MainLayout from '../components/app/layout/MainLayout/MainLayout.vue';
 
 const productStore = useProductStore()
 
