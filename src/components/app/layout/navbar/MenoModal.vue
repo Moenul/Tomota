@@ -15,12 +15,8 @@
                 </div>
             </header>
 
-            <section class="modalCategory min-h-[calc(100vh_-_12rem)] bg-slate-50">
-                <h1>Category Section</h1>
-                <p>need to import category modal. and modify it nicely.</p>
-
-                <p>Note: we have to handle container class technically </p>
-
+            <section class="modalCategory min-h-[calc(100vh_-_12rem)] px-1">
+                <Category></Category>
             </section>
 
             <footer class="modalFooter w-full h-auto bottom-0">
@@ -36,6 +32,8 @@ import { RouterLink } from 'vue-router';
 import Logo from '../../Logo.vue';
 import { Icon } from '@iconify/vue/dist/iconify.js';
 import TopNav from './TopNav.vue';
+import Category from '../category/Category.vue';
+
 
 const emits = defineEmits('toggleMeno');
 

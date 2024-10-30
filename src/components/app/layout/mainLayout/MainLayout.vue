@@ -7,6 +7,6 @@
 </template>
 
 <script setup>
-import Carousel from '../Carousel/Carousel.vue';
+import Carousel from '../carousel/Carousel.vue';
 
 </script>

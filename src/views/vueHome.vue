@@ -30,7 +30,7 @@ import BottomNav from '../components/app/layout/navbar/BottomNav.vue';
 import { useProductStore } from '../stores/storeProduct';
 import { Icon } from '@iconify/vue/dist/iconify.js';
 import Sidebar from '../components/app/layout/sidebar/Sidebar.vue';
-import MainLayout from '../components/app/layout/MainLayout/MainLayout.vue';
+import MainLayout from '../components/app/layout/mainLayout/MainLayout.vue';
 
 const productStore = useProductStore()
 
