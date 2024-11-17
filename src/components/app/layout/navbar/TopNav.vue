@@ -43,16 +43,16 @@ import { Icon } from '@iconify/vue/dist/iconify.js';
 <style lang="postcss">
 
 .topNav{
-    @apply h-auto bg-white text-slate-800 leading-5 md:text-sm md:text-slate-200 md:bg-gray-800 md:h-8 md:leading-none;
+    @apply h-auto bg-section dark:bg-sectionDark text-text dark:text-textDark leading-5 md:text-sm md:text-textDark md:bg-primaryDark md:dark:bg-primaryDark md:h-8 md:leading-none;
 
     .switchBtn{
         @apply py-2 pb-3 flex gap-1 mx-2 cursor-pointer md:mx-0 md:ml-6 relative;
     
         .switchBtnDropDown{
-            @apply hidden absolute top-8 right-0 bg-violet-800 text-slate-200 list-none w-16 text-center p-1 rounded-sm z-30;
+            @apply hidden absolute top-8 right-0  bg-accentHover dark:bg-accent text-accentText dark:text-textDark list-none w-16 text-center p-1 rounded-sm z-30;
         
             .dropDownItem{
-                @apply py-1 rounded-sm hover:bg-violet-600 select-none;
+                @apply py-1 rounded-sm hover:bg-accent dark:hover:bg-accentHover select-none;
             }
         }
         &:hover .switchBtnDropDown{

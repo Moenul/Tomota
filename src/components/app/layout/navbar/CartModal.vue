@@ -11,7 +11,7 @@
                     <Icon icon="clarity:no-access-solid" />
                 </button>
             </header>
-            <section class="w-full p-3">
+            <section class="w-full p-3 bg-section dark:bg-sectionDark">
                 <div class="cartBox">
                     <!-- Items -->
                     <div v-for="i in 4" class="items">
@@ -102,30 +102,30 @@ const handleOutsideClick = () => {
     @apply fixed left-0 top-0 bottom-0 w-full text-base z-20;
 
     .shadowLayer{
-        @apply bg-slate-900/15 h-screen hidden md:block;
+        @apply bg-primaryDark/30 dark:bg-primary/20 h-screen hidden md:block;
     }
 
     .cartSection{
-        @apply w-[calc(100vw_-_1rem)] h-[calc(100vh_-_15rem)] bottom-16 absolute m-auto left-0 right-0 rounded-md overflow-hidden border border-slate-200 shadow-md bg-slate-50 text-slate-800 md:left-auto md:right-0 md:bottom-0 md:w-96 md:h-screen md:rounded-none md:border-none;
+        @apply w-[calc(100vw_-_1rem)] h-[calc(100vh_-_15rem)] bottom-16 absolute m-auto left-0 right-0 rounded-md overflow-hidden border border-border dark:border-borderDark shadow-md bg-section dark:bg-sectionDark text-text dark:text-textDark md:left-auto md:right-0 md:bottom-0 md:w-96 md:h-screen md:rounded-none md:border-none;
     
         .cartHeader{
-            @apply w-full px-3 py-4 md:py-6 flex justify-between text-xl bg-primary text-slate-50;
+            @apply w-full px-3 py-4 md:py-6 flex justify-between text-xl bg-accent dark:bg-accentHover text-accentText dark:text-textDark;
         }
 
         .cartBox{
-            @apply w-full max-h-[calc(100vh_-_34rem)] md:max-h-[calc(100vh_-_20rem)] overflow-x-auto [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-track]:bg-gray-300 [&::-webkit-scrollbar-thumb]:bg-gray-700 [&::-webkit-scrollbar-thumb]:rounded;
+            @apply w-full max-h-[calc(100vh_-_34rem)] md:max-h-[calc(100vh_-_20rem)] overflow-x-auto [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-track]:bg-gray-300 dark:[&::-webkit-scrollbar-track]:bg-slate-600 [&::-webkit-scrollbar-thumb]:bg-gray-700 dark:[&::-webkit-scrollbar-thumb]:bg-gray-200 [&::-webkit-scrollbar-thumb]:rounded;
             
             .items{
-                @apply w-full flex justify-between my-2 px-1 py-2 border-y border-gray-300 overflow-hidden;
+                @apply w-full flex justify-between my-2 px-1 py-2 border-y border-border dark:border-borderDark overflow-hidden;
                 
                 .itemDetails{
                     @apply w-[calc(100%-4rem)] px-1;
 
                     .quantityCounter{
-                        @apply w-28 h-8 p-1 flex justify-between items-center rounded-lg border-2 border-slate-300 text-xl shadow-sm;
+                        @apply w-28 h-8 p-1 flex justify-between items-center rounded-lg border-2 border-border dark:border-borderDark text-xl shadow-sm;
                     
                         .incrementDecrementBtn{
-                            @apply size-6 flex justify-center items-center rounded-md bg-slate-200 cursor-pointer;
+                            @apply size-6 flex justify-center items-center rounded-md bg-textDark dark:bg-primaryDark cursor-pointer;
                         }
                     }
                 }
@@ -134,13 +134,16 @@ const handleOutsideClick = () => {
         }
 
         .cartFooter{
-            @apply w-full p-3 pb-4 bg-white border-t border-slate-300 absolute bottom-0 md:pb-3;
+            @apply w-full p-3 pb-4 bg-section dark:bg-sectionDark border-t border-border dark:border-borderDark absolute bottom-0 md:pb-3;
         
             .tokenAndSubtotal{
-                @apply w-full px-6 py-2 border border-slate-300;
+                @apply w-full px-6 py-2 border border-border dark:border-borderDark;
 
                 .tokenBox{
-                    @apply w-full flex items-center overflow-hidden bg-white border border-slate-900 rounded;
+                    @apply w-full flex items-center overflow-hidden bg-section dark:bg-sectionDark border border-slate-900 rounded;
+                    input{
+                        @apply bg-section dark:bg-sectionDark
+                    }
                 }
 
                 .subtotalBox{
@@ -149,10 +152,10 @@ const handleOutsideClick = () => {
             }
         
             .placeOrderBtn{
-                @apply w-full border border-slate-900 rounded mt-3 bg-white hover:bg-primaryStrong/5 hover:border-primaryStrong hover:text-primaryStrong;
+                @apply w-full rounded mt-3 bg-section dark:bg-sectionDark border border-slate-900 dark:border-accent hover:bg-accentHover/5 dark:hover:bg-accent hover:border-accentHover dark:hover:border-accent hover:text-accentHover dark:hover:text-accentText;
             }
             .viewCartBtn{
-                @apply w-full rounded mt-3 bg-primary text-white hover:bg-primaryStrong/90;
+                @apply w-full rounded mt-3 text-accentText bg-accent dark:bg-accentHover hover:bg-accentHover dark:hover:bg-accent;
             }
         }
     }

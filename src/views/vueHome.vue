@@ -8,7 +8,7 @@
     
 
     <div class="container min-h-[1000px]">
-        <p class="text-3xl text-violet-600">Home Page</p>
+        <p class="text-3xl text-violet-600 dark:text-red-400">Home Page</p>
         <li v-for="product in products">
             {{ product.id }}. {{ product.name }} (${{ product.price }})
         </li>

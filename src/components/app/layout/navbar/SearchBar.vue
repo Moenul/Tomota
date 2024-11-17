@@ -1,20 +1,20 @@
 <template>
     <!-- Shadow Layer -->
-    <div class="shadowLayer w-full h-screen fixed top-0 left-0 bg-slate-900/15 md:hidden"></div>
+    <div class="shadowLayer"></div>
 
     <div v-click-outside="handleOutsideClick">
 
         <!-- Search Bar -->
-    <div  class="searchBar w-5/6 h-12 px-3 rounded bg-white fixed m-auto left-0 right-0 top-20 flex items-center overflow-hidden md:w-full md:h-10 md:px-2 md:relative md:top-0">
-        <div class="icon text-slate-500 w-8 px-1 text-lg">
+    <div  class="searchBar">
+        <div class="icon">
             <Icon icon="mage:search"/>
         </div>
-        <input type="text" class="w-full px-1 py-2 text-slate-800 outline-none" placeholder="Search ..">
-        <button type="submit" class="text-sm font-medium px-4 py-1 bg-secondary text-black rounded-sm hover:bg-orange-400">Search</button>
+        <input type="text" class="" placeholder="Search ..">
+        <button type="submit" class="">Search</button>
     </div>
 
     <!-- Search Result -->
-    <div class="searchResult w-5/6 min-h-36 px-3 rounded bg-slate-100 fixed m-auto left-0 right-0 top-36 overflow-hidden md:hidden">
+    <div class="searchResult">
         Search Results...
     </div>
 
@@ -38,8 +38,28 @@ const handleOutsideClick = () => {
 
 <style lang="postcss">
 
+.shadowLayer{
+    @apply w-full h-screen fixed top-0 left-0 bg-primaryDark/30 dark:bg-primary/20 md:hidden;
+}
 
+.searchBar{
+    @apply w-5/6 h-12 px-3 rounded bg-primary dark:bg-primaryDark fixed m-auto left-0 right-0 top-20 flex items-center overflow-hidden md:w-full md:h-10 md:px-2 md:relative md:top-0;
 
+    .icon{
+        @apply text-slate-500 w-8 px-1 text-lg;
+    }
+
+    input[type=text]{
+        @apply w-full px-1 py-2 bg-primary dark:bg-primaryDark text-text dark:text-textDark outline-none;
+    }
+    button[type=submit]{
+        @apply text-sm font-medium px-4 py-1 bg-secondary text-black rounded-sm hover:bg-orange-400;
+    }
+}
+
+.searchResult{
+    @apply w-5/6 min-h-36 px-3 rounded bg-primary dark:bg-primaryDark fixed m-auto left-0 right-0 top-36 overflow-hidden md:hidden
+}
 
 
 </style>

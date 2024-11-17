@@ -7,7 +7,31 @@ export default {
   theme: {
     extend: {
       colors:{
-        primary: '#6561AC',
+        primary:'#F7FAFC',
+        section:'#FFFFFF',
+        accent:'#5A67D8',
+        accentText:'#FFFFFF',
+        accentHover:'#434190',
+        text:'#2D3748',
+        textSecondary:'#4A5568',
+        textMuted:'#A0AEC0',
+        border:'#E2E8F0',
+
+
+        primaryDark:'#1A202C',
+        sectionDark:'#2D3748',
+        accentDark:'#5A67D8',
+        accentTextDark:'#FFFFFF',
+        accentHoverDark:'#7F8FE0',
+        textDark:'#E2E8F0',
+        textSecondaryDark:'#A0AEC0',
+        textMutedDark:'#718096',
+        borderDark:'#4A5568',
+
+        success: '#48BB78',
+        warning: '#ECC94B',
+        errors: '#E53E3E',
+
         primaryStrong: '#3932ad',
         secondary: '#F3AE4B'
       },
@@ -31,5 +55,6 @@ export default {
     },
   },
   plugins: [],
+  darkMode: 'class',
 }
 
