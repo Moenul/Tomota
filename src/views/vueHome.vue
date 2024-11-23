@@ -1,34 +1,10 @@
 <template>
     <TopNav class="hidden md:block"></TopNav>
     <Navbar />
-    <div class="content_wrapper container grid md:flex md:gap-8">
-        <Sidebar />
+    <div class="content_wrapper container grid md:flex md:gap-8 mb-10">
+        <Sidebar class="hidden md:block" />
         <MainLayout />
-    </div>
-
-    <div class="container min-h-[1000px]">
-        <p class="text-3xl text-violet-600 dark:text-red-400">Home Page</p>
-        <li v-for="product in products">
-            {{ product.id }}. {{ product.name }} (${{ product.price }})
-        </li>
-
-        <div class="flex items-center me-4 relative">
-            <input
-                id="red-checkbox"
-                type="checkbox"
-                value=""
-                class="appearance-none peer forced-colors:appearance-auto w-4 h-4 text-red-500 border-2 border-white bg-gray-200 rounded focus:ring-2 focus:ring-red-500"
-            />
-            <Icon
-                icon="tabler:square-check-filled"
-                class="invisible peer-checked:visible forced-colors:hidden text-red-500 text-md absolute -left-0"
-            />
-            <label
-                for="red-checkbox"
-                class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-                >Custom Checkbox</label
-            >
-        </div>
+        <Sidebar class="block md:hidden" />
     </div>
 
     <BottomNav />
@@ -38,12 +14,6 @@
 import Navbar from "../components/app/layout/navbar/Navbar.vue";
 import TopNav from "../components/app/layout/navbar/TopNav.vue";
 import BottomNav from "../components/app/layout/navbar/BottomNav.vue";
-import { useProductStore } from "../stores/storeProduct";
-import { Icon } from "@iconify/vue/dist/iconify.js";
 import Sidebar from "../components/app/layout/sidebar/Sidebar.vue";
 import MainLayout from "../components/app/layout/mainLayout/MainLayout.vue";
-
-const productStore = useProductStore();
-
-const products = productStore.products;
 </script>
