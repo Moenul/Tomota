@@ -2,19 +2,26 @@
 @tailwind components;
 @tailwind utilities;
 
-body{
-    background-color: #F8F8FF;
+body {
+    background-color: #f8f8ff;
 }
 
 html {
     font-size: 16px;
     @screen md {
-      font-size: 18px;
+        font-size: 18px;
     }
 }
 
-*{
-    @apply transition-colors duration-200; 
+div,
+input,
+button,
+span,
+section,
+header,
+a,
+p {
+    @apply transition-colors duration-200;
 }
 
 /* .containerSpace{
