@@ -18,9 +18,9 @@
 import { Icon } from "@iconify/vue/dist/iconify.js";
 </script>
 
-<style scoped>
+<style lang="postcss">
 .policyBox {
-    @apply w-full grid grid-cols-1 md:grid-cols-3 my-12 px-4 py-1 md:py-2 rounded-xl shadow-sm border border-border dark:border-borderDark divide-textMuted dark:divide-textMutedDark divide-y md:divide-x md:divide-y-0;
+    @apply w-full grid grid-cols-1 md:grid-cols-3 my-12 px-4 py-1 md:py-2 rounded-xl shadow-sm bg-section dark:bg-sectionDark border border-border dark:border-borderDark divide-textMuted dark:divide-textMutedDark divide-y md:divide-x md:divide-y-0;
 
     .item {
         @apply flex justify-center items-center py-3 md:py-4 text-text dark:text-textDark;
