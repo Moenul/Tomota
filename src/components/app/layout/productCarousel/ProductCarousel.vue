@@ -81,7 +81,7 @@
 <script setup>
 import { Icon } from "@iconify/vue/dist/iconify.js";
 import { onMounted, ref } from "vue";
-import { useProductStore } from "../../../../stores/storeProduct";
+import { useProductStore } from "../../../../stores/storeProducts";
 
 const productStore = useProductStore();
 
@@ -153,7 +153,7 @@ onMounted(() => {
                                 @apply text-base text-errors font-semibold;
                             }
                             .discount {
-                                @apply px-2 py-1 rounded-2xl flex justify-between items-center gap-1 shadow border dark:border-borderDark text-textSecondary dark:text-textSecondaryDark;
+                                @apply px-2 py-1 rounded-2xl flex justify-between items-center gap-1 shadow bg-primary dark:bg-primaryDark border dark:border-borderDark text-textSecondary dark:text-textSecondaryDark;
                             }
                         }
                         .cart {

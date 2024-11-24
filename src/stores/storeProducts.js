@@ -1,22 +1,21 @@
 import { defineStore } from "pinia";
 import axios from "axios";
 
-export const useProductStore = defineStore("productStore", {
+export const useProductStore = defineStore("products", {
     state: () => {
         return {
             products: [
                 {
-                    id: 1,
-                    name: "tomato",
-                    price: 20,
-                },
-                {
-                    id: 2,
-                    name: "potato",
-                    price: 25,
+                    id: 4,
+                    title: "Handmade Fresh Table",
+                    price: 687,
+                    images: "https://placeimg.com/640/480/any?r=0.8807778235430017",
                 },
             ],
         };
+    },
+    getters: {
+        // getters methods
     },
     actions: {
         // actions methods
@@ -30,8 +29,5 @@ export const useProductStore = defineStore("productStore", {
                 console.log(e);
             }
         },
-    },
-    getters: {
-        // getters methods
     },
 });
