@@ -1,6 +1,7 @@
 <template>
     <aside class="sidebar w-full md:w-64 min-h-80 pt-4">
         <Category class="hidden md:block" />
+        <Filter v-if="$route.name == 'Category'" class="mt-5" />
         <template v-for="ads in sideAds" key="index">
             <SideAds :ads="ads" />
         </template>
@@ -10,6 +11,7 @@
 <script setup>
 import Category from "../category/Category.vue";
 import SideAds from "../sideAds/SideAds.vue";
+import Filter from "../filter/Filter.vue";
 
 const sideAds = {
     ads1: {

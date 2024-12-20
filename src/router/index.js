@@ -1,4 +1,4 @@
-import { createMemoryHistory, createRouter } from "vue-router";
+import { createWebHistory, createRouter } from "vue-router";
 
 // Layouts
 import MainLayout from "../layouts/mainLayout/MainLayout.vue";
@@ -6,6 +6,7 @@ import DashboardLayout from "../layouts/dashboardLayout/DashboardLayout.vue";
 
 // Public Views
 import Home from "../views/Home.vue";
+import Categories from "../views/Categories.vue";
 
 // Dashboard Views
 import Overview from "../views/Dashboard/Overview.vue";
@@ -19,7 +20,22 @@ const routes = [
         path: "/",
         name: "MainLayout",
         component: MainLayout,
-        children: [{ path: "", name: "Home", component: Home }],
+        children: [
+            { path: "", name: "Home", component: Home },
+            {
+                path: "categories",
+                name: "Categories",
+                component: Categories,
+                props: true,
+                children: [
+                    {
+                        path: ":category",
+                        name: "Category",
+                        component: Categories,
+                    },
+                ],
+            },
+        ],
     },
     // Dashboard Routes
     {
@@ -33,7 +49,7 @@ const routes = [
 ];
 
 const router = createRouter({
-    history: createMemoryHistory(),
+    history: createWebHistory(),
     routes,
 });
 
