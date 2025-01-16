@@ -249,7 +249,7 @@ props?.filter?.children?.map((item) => {
 // ........
 
 // If any Item is Checked This section have to be open.
-if (props.filter.children[0].isActive) {
+if (props.filter.children.find((e) => e.isActive === true)) {
     toggle();
 }
 // ........
