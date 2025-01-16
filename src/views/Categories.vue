@@ -10,6 +10,9 @@
             <Filter class="block md:hidden mt-5" />
 
             {{ $route.params }}
+            {{ $route.query }}
+
+            <ProductCarousel />
         </section>
     </main>
 </template>

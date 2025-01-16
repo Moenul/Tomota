@@ -40,12 +40,12 @@
 <script setup>
 import FilterItem from "./FilterItem.vue";
 import { Icon } from "@iconify/vue/dist/iconify.js";
+import { useRoute } from "vue-router";
+
 const filters = [
     {
         name: "Price",
-        value: 0,
-        min: 100,
-        max: 5000,
+        children: [{ name: 300 }, { name: 9000 }],
     },
     {
         name: "Status",
@@ -69,4 +69,39 @@ const filters = [
         ],
     },
 ];
+
+// Below those codes use for got selected item from router query and
+// set selected items active status to true.
+const route = useRoute();
+
+// Got Selected Query array
+const selectedFilterQuery = Object.entries(route.query);
+
+// Make Selected Query array to Object
+const selectedFilter = selectedFilterQuery.map(([name, values]) => ({
+    name,
+    children: values.split(",").map((value) => ({ name: value })),
+}));
+
+// make isActive true if its mathch with selected items
+filters.forEach((filterType) => {
+    // Find the matching category in selectedFilter
+    const matchingSelectedType = selectedFilter.find(
+        (value) => value.name === filterType.name
+    );
+    if (matchingSelectedType) {
+        // Update the `isActive` property of children in the filterType and Price min max value.
+        filterType.children.forEach((child, index) => {
+            if (matchingSelectedType.name == "Price") {
+                child.name = matchingSelectedType.children[index].name;
+            } else {
+                child.isActive = matchingSelectedType.children.some(
+                    (value) => value.name === child.name
+                );
+            }
+        });
+    }
+});
+
+// ........
 </script>

@@ -19,7 +19,10 @@
                         :min="min"
                         :max="max"
                         v-model="minPrice"
-                        @input="updateMinThumb"
+                        @input="
+                            updateMinThumb();
+                            updateMinMax();
+                        "
                     />
                     <span class="text-text dark:text-textDark"
                         ><Icon icon="ic:round-minus"
@@ -31,7 +34,10 @@
                         :min="min"
                         :max="max"
                         v-model="maxPrice"
-                        @input="updateMaxThumb"
+                        @input="
+                            updateMaxThumb();
+                            updateMinMax();
+                        "
                     />
                 </div>
                 <div class="priceRange w-full h-6 relative">
@@ -42,7 +48,10 @@
                         v-model="minPrice"
                         :min="min"
                         :max="max"
-                        @input="updateMinThumb"
+                        @input="
+                            updateMinThumb();
+                            updateMinMax();
+                        "
                         :class="
                             minPrice >= maxPrice - 800
                                 ? '[&::-webkit-slider-thumb]:bg-accent'
@@ -63,7 +72,10 @@
                         v-model="maxPrice"
                         :min="min"
                         :max="max"
-                        @input="updateMaxThumb"
+                        @input="
+                            updateMaxThumb();
+                            updateMinMax();
+                        "
                         :class="
                             maxPrice <= minPrice + 800
                                 ? '[&::-webkit-slider-thumb]:bg-accent'
@@ -79,7 +91,9 @@
             <div
                 class="itemHeader py-2 flex justify-between items-center font-bold text-text dark:text-textDark"
             >
-                <div class="itemName">{{ filter.name }}</div>
+                <div class="itemName">
+                    {{ filter.name }}
+                </div>
                 <div
                     class="collapsedBtn w-8 h-6 cursor-pointer flex justify-end items-center"
                     @click="toggle"
@@ -104,6 +118,14 @@
                                 :id="item.name"
                                 type="checkbox"
                                 :value="item.name"
+                                :checked="item.isActive"
+                                @change="
+                                    updateFilter(
+                                        filter.name,
+                                        $event.target.checked,
+                                        item.name
+                                    )
+                                "
                                 class="appearance-none peer forced-colors:appearance-auto w-[16px] h-[16px] bg-border dark:bg-borderDark rounded focus:ring-2 focus:ring-accent dark:focus:ring-section"
                             />
                             <Icon
@@ -126,7 +148,8 @@
 <script setup>
 import { Icon } from "@iconify/vue/dist/iconify.js";
 import { useModal } from "../../../../composable/utillity/useModal";
-import { computed, ref } from "vue";
+import { watch, reactive, ref } from "vue";
+import { useRouter } from "vue-router";
 
 const props = defineProps({
     filter: {
@@ -135,14 +158,24 @@ const props = defineProps({
     },
 });
 
-const { isOpen, toggle } = useModal();
-
 const min = 0;
 const max = 10000;
-const minPrice = ref(100);
-const maxPrice = ref(9000);
+const minPrice = ref();
+const maxPrice = ref();
 const minThumb = ref(0);
 const maxThumb = ref(0);
+
+const { isOpen, toggle } = useModal();
+
+const router = useRouter();
+
+const selectedFilters = reactive({});
+
+// This code for update min and max price value from props
+if (props.filter.name == "Price") {
+    minPrice.value = props.filter.children[0].name;
+    maxPrice.value = props.filter.children[1].name;
+}
 
 const updateMinThumb = () => {
     minThumb.value = 100 - ((minPrice.value - min) / (max - min)) * 100;
@@ -161,6 +194,65 @@ const updateMaxThumb = () => {
 
 updateMinThumb();
 updateMaxThumb();
+
+// this fn for update price in selectedFilters and update in url
+const updateMinMax = () => {
+    if (minPrice.value) {
+        if (!selectedFilters["Price"]) {
+            selectedFilters["Price"] = [];
+        }
+        selectedFilters["Price"][0] = minPrice.value;
+        selectedFilters["Price"][1] = maxPrice.value;
+    }
+};
+// ........
+
+// This code for store Selected Items data for next url rendering
+const updateFilter = (type, isChecked, value) => {
+    if (isChecked) {
+        if (!selectedFilters[type]) {
+            selectedFilters[type] = [];
+        }
+        if (!selectedFilters[type].includes(value)) {
+            selectedFilters[type].push(value);
+        }
+    } else {
+        const index = selectedFilters[type].indexOf(value);
+        if (index > -1) selectedFilters[type].splice(index, 1);
+    }
+};
+// .......
+
+// Need to do more operation in watch for access or place multiple type in selectedFilter array.
+watch(
+    () => ({ ...selectedFilters }),
+    (newFilters) => {
+        const query = Object.entries(newFilters)
+            .filter(([_, values]) => values.length > 0)
+            .map(([key, values]) => `${key}=${values.join(",")}`)
+            .join("&");
+        const url = `/categories/Vehicles?${query}`;
+        router.push(url);
+    },
+    { deep: true }
+);
+// .........
+
+// this code used for selectedFilters array are empry after refresh page.
+// that why I reinitiate selected item to selectedFilter. And Its properly syncronise selected filters.
+props?.filter?.children?.map((item) => {
+    const filterName = props.filter.name;
+    if (item.isActive) {
+        updateFilter(filterName, true, item.name);
+    }
+});
+// ........
+
+// If any Item is Checked This section have to be open.
+if (props.filter.children[0].isActive) {
+    toggle();
+}
+// ........
 </script>
 <style>
 input[type="range"]:first-of-type::-webkit-slider-thumb {
