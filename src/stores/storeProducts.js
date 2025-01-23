@@ -14,9 +14,6 @@ export const useProductStore = defineStore("products", {
             ],
         };
     },
-    getters: {
-        // getters methods
-    },
     actions: {
         // actions methods
         async getProducts() {
@@ -29,5 +26,19 @@ export const useProductStore = defineStore("products", {
                 console.log(e);
             }
         },
+
+        async getProductsByCategory(id) {
+            const responce = await axios.get(
+                `https://api.escuelajs.co/api/v1/products/?categoryId=${id}`
+            );
+            try {
+                this.products = responce.data;
+            } catch (e) {
+                console.log(e);
+            }
+        },
+    },
+    getters: {
+        // getters methods
     },
 });

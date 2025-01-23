@@ -150,6 +150,7 @@ import { Icon } from "@iconify/vue/dist/iconify.js";
 import { useModal } from "../../../../composable/utillity/useModal";
 import { watch, reactive, ref } from "vue";
 import { useRouter } from "vue-router";
+import { useRoute } from "vue-router";
 
 const props = defineProps({
     filter: {
@@ -168,11 +169,13 @@ const maxThumb = ref(0);
 const { isOpen, toggle } = useModal();
 
 const router = useRouter();
-
+const route = useRoute();
 const selectedFilters = reactive({});
 
+const currentFilterName = props.filter.name;
+
 // This code for update min and max price value from props
-if (props.filter.name == "Price") {
+if (currentFilterName == "Price") {
     minPrice.value = props.filter.children[0].name;
     maxPrice.value = props.filter.children[1].name;
 }
@@ -223,16 +226,33 @@ const updateFilter = (type, isChecked, value) => {
 };
 // .......
 
-// Need to do more operation in watch for access or place multiple type in selectedFilter array.
+// Watcher to update route with query for every event fired on selectedFilters object.
 watch(
     () => ({ ...selectedFilters }),
     (newFilters) => {
-        const query = Object.entries(newFilters)
+        const querys = Object.entries(newFilters)
             .filter(([_, values]) => values.length > 0)
-            .map(([key, values]) => `${key}=${values.join(",")}`)
-            .join("&");
-        const url = `/categories/Vehicles?${query}`;
-        router.push(url);
+            .reduce((acc, [key, values]) => {
+                acc[key] = values.join(",");
+                return acc;
+            }, {});
+
+        if (Object.keys(querys).length !== 0) {
+            router.push({
+                path: route.path, // Keep the current path
+                query: {
+                    ...route.query, // Spread existing query parameters
+                    ...querys, // Update or add the "querys" parameter
+                },
+            });
+        } else {
+            const removeQuery = { ...route.query }; // Spread existing query parameters object
+            delete removeQuery[Object.keys(newFilters)]; // Delete empty query perameters
+            router.push({
+                path: route.path,
+                query: removeQuery,
+            });
+        }
     },
     { deep: true }
 );
@@ -241,9 +261,8 @@ watch(
 // this code used for selectedFilters array are empry after refresh page.
 // that why I reinitiate selected item to selectedFilter. And Its properly syncronise selected filters.
 props?.filter?.children?.map((item) => {
-    const filterName = props.filter.name;
     if (item.isActive) {
-        updateFilter(filterName, true, item.name);
+        updateFilter(currentFilterName, true, item.name);
     }
 });
 // ........

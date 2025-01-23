@@ -10,9 +10,17 @@
         </header>
 
         <section class="mt-6">
-            <ProductCarousel />
+            <ProductCarousel
+                :products="productStore.products"
+                :title="`BEST SALES`"
+                :desc="`Do not miss the current offers until the end of March.`"
+            />
             <SalesPolicy />
-            <ProductCarousel />
+            <ProductCarousel
+                :products="productStore.products"
+                :title="`NEW PRODUCT'S`"
+                :desc="`New products with updated stocks.`"
+            />
         </section>
     </main>
 
@@ -25,4 +33,12 @@ import Carousel from "../components/app/layout/carousel/Carousel.vue";
 import ProductCarousel from "../components/app/layout/productCarousel/ProductCarousel.vue";
 import SalesPolicy from "../components/app/layout/salesPolicy/SalesPolicy.vue";
 import Sidebar from "../components/app/layout/sidebar/Sidebar.vue";
+import { useProductStore } from "../stores/storeProducts";
+import { onMounted } from "vue";
+
+const productStore = useProductStore();
+
+onMounted(() => {
+    productStore.getProducts();
+});
 </script>

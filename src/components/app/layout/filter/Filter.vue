@@ -12,17 +12,7 @@
                     <Icon icon="solar:filter-line-duotone" class="text-2xl" />
                     <span> Filter</span>
                 </div>
-                <div class="sortSection text-text dark:text-textDark">
-                    Sort by:
-                    <select
-                        name=""
-                        id=""
-                        class="py-1 rounded-sm text-sm bg-section dark:bg-sectionDark text-text dark:text-textDark border border-border dark:border-borderDark"
-                    >
-                        <option value="">Low to High</option>
-                        <option value="">High to Low</option>
-                    </select>
-                </div>
+                <SortSelection />
             </div>
             <p class="hidden md:block">Filter by</p>
         </div>
@@ -30,7 +20,7 @@
             class="filterSection w-full px-4 max-h-[calc(100vh_-_18rem)] md:max-h-80 overflow-x-auto [&::-webkit-scrollbar]:w-1 [&::-webkit-scrollbar-track]:bg-border dark:[&::-webkit-scrollbar-track]:bg-borderDark [&::-webkit-scrollbar-thumb]:bg-textSecondary dark:[&::-webkit-scrollbar-thumb]:bg-textDark [&::-webkit-scrollbar-thumb]:rounded"
         >
             <FilterItem
-                v-for="filter in filters"
+                v-for="filter in filterStore.filters"
                 :filter="filter"
                 :key="index"
             />
@@ -41,34 +31,10 @@
 import FilterItem from "./FilterItem.vue";
 import { Icon } from "@iconify/vue/dist/iconify.js";
 import { useRoute } from "vue-router";
+import SortSelection from "../sortSelction/SortSelection.vue";
+import { useFilterStore } from "../../../../stores/storeFilters";
 
-const filters = [
-    {
-        name: "Price",
-        children: [{ name: 300 }, { name: 9000 }],
-    },
-    {
-        name: "Status",
-        children: [{ name: "In Stock" }, { name: "Out of Stock" }],
-    },
-    {
-        name: "Brand",
-        children: [{ name: "HP" }, { name: "Dell" }, { name: "Acer" }],
-    },
-    {
-        name: "Type",
-        children: [{ name: "Normal" }, { name: "Heavy" }],
-    },
-    {
-        name: "Color",
-        children: [
-            { name: "Red" },
-            { name: "Blue" },
-            { name: "Green" },
-            { name: "Yellow" },
-        ],
-    },
-];
+const filterStore = useFilterStore();
 
 // Below those codes use for got selected item from router query and
 // set selected items active status to true.
@@ -84,7 +50,7 @@ const selectedFilter = selectedFilterQuery.map(([name, values]) => ({
 }));
 
 // make isActive true if its mathch with selected items
-filters.forEach((filterType) => {
+filterStore.filters.forEach((filterType) => {
     // Find the matching category in selectedFilter
     const matchingSelectedType = selectedFilter.find(
         (value) => value.name === filterType.name

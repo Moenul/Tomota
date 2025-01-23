@@ -35,6 +35,7 @@ import CategoryItem from "./CategoryItem.vue";
 import { useModal } from "../../../../composable/utillity/useModal";
 import { useRoute } from "vue-router";
 import { computed } from "vue";
+import { useCategoryStore } from "../../../../stores/storeCategories";
 
 const { isOpen, toggle } = useModal();
 
@@ -48,121 +49,9 @@ if (currentRoute.value == "Category") {
     if (window.innerWidth >= 760) toggle();
 }
 
-const categories = [
-    {
-        id: 1,
-        name: "Vehicles",
-        children: [
-            {
-                id: 2,
-                name: "Car",
-                children: [
-                    { id: 3, name: "SUV" },
-                    { id: 4, name: "Sedan" },
-                ],
-            },
-            { id: 5, name: "Jeep" },
-            { id: 6, name: "Bike" },
-        ],
-    },
-    {
-        id: 7,
-        name: "Food",
-        children: [
-            {
-                id: 8,
-                name: "Fruits",
-                children: [
-                    { id: 9, name: "Apple" },
-                    {
-                        id: 10,
-                        name: "Lemon",
-                        children: [
-                            { id: 11, name: "Orange" },
-                            { id: 12, name: "Green Lemon" },
-                        ],
-                    },
-                ],
-            },
-            { id: 13, name: "Fast Food" },
-            { id: 14, name: "Vegetables" },
-        ],
-    },
-    {
-        id: 15,
-        name: "Electronics",
-        children: [
-            {
-                id: 16,
-                name: "Computers",
-                children: [
-                    { id: 17, name: "Laptops" },
-                    { id: 18, name: "Desktops" },
-                ],
-            },
-            { id: 19, name: "Smartphones" },
-            {
-                id: 20,
-                name: "Gaming Consoles",
-                children: [
-                    { id: 21, name: "PlayStation" },
-                    { id: 22, name: "Xbox" },
-                ],
-            },
-        ],
-    },
-    {
-        id: 23,
-        name: "Clothing",
-        children: [
-            {
-                id: 24,
-                name: "Men",
-                children: [
-                    { id: 25, name: "Shirts" },
-                    {
-                        id: 26,
-                        name: "Trousers",
-                        children: [
-                            { id: 27, name: "Jeans" },
-                            { id: 28, name: "Chinos" },
-                        ],
-                    },
-                ],
-            },
-            {
-                id: 29,
-                name: "Women",
-                children: [
-                    { id: 30, name: "Dresses" },
-                    { id: 31, name: "Tops" },
-                ],
-            },
-        ],
-    },
-    {
-        id: 32,
-        name: "Books",
-        children: [
-            {
-                id: 33,
-                name: "Fiction",
-                children: [
-                    { id: 34, name: "Fantasy" },
-                    { id: 35, name: "Mystery" },
-                ],
-            },
-            {
-                id: 36,
-                name: "Non-Fiction",
-                children: [
-                    { id: 37, name: "Biographies" },
-                    { id: 38, name: "Self-Help" },
-                ],
-            },
-        ],
-    },
-];
+const categoryStore = useCategoryStore();
+
+const categories = categoryStore.categories;
 </script>
 
 <style scoped lang="postcss">
