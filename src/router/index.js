@@ -7,6 +7,7 @@ import DashboardLayout from "../layouts/dashboardLayout/DashboardLayout.vue";
 // Public Views
 import Home from "../views/Home.vue";
 import Categories from "../views/Categories.vue";
+import Product from "../views/Product.vue";
 
 // Dashboard Views
 import Overview from "../views/Dashboard/Overview.vue";
@@ -34,6 +35,12 @@ const routes = [
                         component: Categories,
                     },
                 ],
+            },
+            {
+                path: "/product/:id/:slug?",
+                name: "Product",
+                component: Product,
+                props: true,
             },
         ],
     },

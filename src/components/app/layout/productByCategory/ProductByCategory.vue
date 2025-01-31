@@ -22,9 +22,11 @@
                         <img :src="product.images" alt="" />
                     </div>
                     <div class="detailsSection">
-                        <p class="itemName">
-                            {{ product.title }}
-                        </p>
+                        <router-link :to="`/product/${product.id}`">
+                            <p class="itemName">
+                                {{ product.title }}
+                            </p>
+                        </router-link>
                         <div class="priceAndCart">
                             <div class="priceAndDiscount">
                                 <span class="price">${{ product.price }}</span>
