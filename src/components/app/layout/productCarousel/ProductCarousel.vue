@@ -14,73 +14,39 @@
                 </div>
             </div>
         </div>
-        <div class="carouselWrapper">
-            <div ref="carouselContainer" class="carouselContainer">
-                <div
-                    ref="carouselItem"
-                    class="carouselItem"
+        <div class="carouselWrapper" v-carousel-slide>
+            <div v-if="props.products.length > 0" class="carouselContainer">
+                <ProductCard
                     v-for="product in props.products"
+                    :product
                     :key="index"
-                >
-                    <div class="imageSection">
-                        <img :src="product.images" alt="" />
-                    </div>
-                    <div class="detailsSection">
-                        <p class="itemName">
-                            {{ product.title }}
-                        </p>
-                        <div class="priceAndCart">
-                            <div class="priceAndDiscount">
-                                <span class="price">${{ product.price }}</span>
-                                <div class="discount">
-                                    <Icon icon="mdi:courier" class="text-sm" />
-                                    <span class="text-xs">Free Delevary</span>
-                                </div>
-                            </div>
-                            <div class="cart">
-                                <Icon icon="mage:basket-fill" />
-                                <span class="cartText">Add Cart</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="favoriteAndQuickview">
-                        <div class="fqBtn favoriteBtn">
-                            <Icon icon="heroicons:heart" />
-                            <!-- <Icon
-                                icon="heroicons:heart-solid"
-                                class="text-errors"
-                            /> -->
-                        </div>
-                        <div class="fqBtn quickviewBtn">
-                            <Icon icon="solar:eye-outline" />
-                        </div>
-                    </div>
-                </div>
+                    :size="'md:min-w-44'"
+                />
+            </div>
+            <div v-else class="py-4 text-2xl text-center">
+                <p>No product found!</p>
             </div>
 
             <!-- Left Scroll Button -->
             <button
-                @click="scrollLeft(itemWidth)"
-                class="scrollBtn -left-3 md:-left-5"
+                class="scrollBtn slideLeft hidden md:flex -left-3 md:-left-5"
             >
                 <Icon icon="uiw:left" />
             </button>
 
             <!-- Right Scroll Button -->
             <button
-                @click="scrollRight(itemWidth)"
-                class="scrollBtn -right-3 md:-right-5"
+                class="scrollBtn slideRight hidden md:flex -right-3 md:-right-5"
             >
                 <Icon icon="uiw:right" />
             </button>
         </div>
     </div>
-    <!-- {{ productStore.products }} -->
 </template>
 
 <script setup>
 import { Icon } from "@iconify/vue/dist/iconify.js";
-import { onUpdated, ref } from "vue";
+import ProductCard from "../product/ProductCard.vue";
 
 const props = defineProps({
     products: {
@@ -95,29 +61,6 @@ const props = defineProps({
         type: String,
         Required: true,
     },
-});
-
-const carouselContainer = ref();
-const carouselItem = ref();
-
-let itemWidth = 0;
-
-const scrollLeft = (e) => {
-    console.log(e);
-    if (carouselContainer.value) {
-        carouselContainer.value.scrollLeft -= e;
-    }
-};
-
-const scrollRight = (e) => {
-    console.log(e);
-    if (carouselContainer.value) {
-        carouselContainer.value.scrollLeft += e;
-    }
-};
-
-onUpdated(() => {
-    itemWidth = carouselItem.value[0].offsetWidth;
 });
 </script>
 <style lang="postcss">
@@ -140,67 +83,10 @@ onUpdated(() => {
         @apply w-full border dark:border-borderDark rounded-md relative mt-4;
         .carouselContainer {
             @apply rounded-md overflow-hidden md:overflow-x-auto scroll-smooth [&::-webkit-scrollbar]:h-0 grid grid-cols-2 md:flex md:flex-nowrap divide-x dark:divide-borderDark;
-
-            .carouselItem {
-                @apply md:min-w-44 overflow-hidden relative;
-
-                .imageSection {
-                    @apply w-full md:size-44 overflow-hidden;
-                    img {
-                        @apply w-full aspect-[1/1] object-cover transition ease-in-out;
-                    }
-                }
-                .detailsSection {
-                    @apply h-full p-1 mb-4;
-
-                    .itemName {
-                        @apply text-base leading-4 mb-1 text-text dark:text-textDark;
-                    }
-                    .priceAndCart {
-                        @apply flex justify-between;
-                        .priceAndDiscount {
-                            .price {
-                                @apply text-base text-errors font-semibold;
-                            }
-                            .discount {
-                                @apply px-2 py-1 rounded-2xl flex justify-between items-center gap-1 shadow bg-primary dark:bg-primaryDark border dark:border-borderDark text-textSecondary dark:text-textSecondaryDark;
-                            }
-                        }
-                        .cart {
-                            @apply relative mr-1 size-10 rounded-t-xl rounded-b-3xl border-t-0 self-end flex justify-center items-center cursor-pointer text-2xl text-secondary bg-secondary/10 border-2 border-secondary shadow hover:bg-secondary hover:text-white transition-all ease-in-out duration-200;
-                            .cartText {
-                                @apply absolute text-xs text-nowrap text-textSecondary dark:text-textSecondaryDark -bottom-5;
-                            }
-                        }
-                    }
-                }
-
-                .favoriteAndQuickview {
-                    @apply w-8 absolute top-2 -right-10 overflow-hidden rounded-md shadow transition-all duration-500 ease-in-out bg-section dark:bg-sectionDark divide-y divide-border dark:divide-borderDark;
-
-                    .fqBtn {
-                        @apply size-8 flex justify-center items-center text-lg cursor-pointer transition-all duration-200 ease-in-out text-text dark:text-textDark hover:bg-accent dark:hover:bg-accentDark hover:text-accentText dark:hover:text-accentTextDark;
-                    }
-                }
-
-                &:hover {
-                    @apply shadow-2xl md:shadow-xl;
-                }
-
-                &:hover .imageSection img {
-                    @apply scale-125;
-                }
-                &:hover .detailsSection {
-                    @apply bg-section dark:bg-sectionDark;
-                }
-                &:hover .favoriteAndQuickview {
-                    @apply right-2;
-                }
-            }
         }
 
         .scrollBtn {
-            @apply hidden size-10 rounded-full text-xl md:flex justify-center items-center absolute top-1/2 transform -translate-y-1/2 bg-section/80 dark:bg-sectionDark/80 text-text dark:text-textDark shadow-md;
+            @apply size-10 rounded-full text-xl justify-center items-center absolute top-1/2 transform -translate-y-1/2 bg-section/80 dark:bg-sectionDark/80 text-text dark:text-textDark shadow-md;
         }
     }
 }

@@ -10,7 +10,7 @@
             <Filter class="block md:hidden mt-5" />
 
             <ProductByCategory
-                :products="productStore.products"
+                :products="filteredProducts"
                 :title="$route.params.category"
                 :desc="`Do not miss the current offers until the end of March.`"
             />
@@ -34,28 +34,19 @@ import ProductByCategory from "../components/app/layout/productByCategory/Produc
 
 import { useRoute } from "vue-router";
 
-import { useCategoryStore } from "../stores/storeCategories";
-import { onMounted, watch } from "vue";
+import { onMounted, computed } from "vue";
 
 // route and store
 const route = useRoute();
-const categoryStore = useCategoryStore();
 const productStore = useProductStore();
 
-const currentCategory = (address) => categoryStore.getCategory(address);
-const getProduct = (id) => productStore.getProductsByCategory(id);
-
-watch(route, (newCategory) => {
-    if (newCategory) {
-        const currentCategoryId = currentCategory(
-            newCategory.params.category
-        ).id;
-        getProduct(currentCategoryId);
-    }
-});
+const filteredProducts = computed(() =>
+    productStore.getProductsByCategory(route.params.category)
+);
 
 onMounted(() => {
-    const currentCategoryId = currentCategory(route.params.category).id;
-    getProduct(currentCategoryId);
+    if (productStore.products.length === 0) {
+        productStore.getProducts();
+    }
 });
 </script>

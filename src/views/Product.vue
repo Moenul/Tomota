@@ -5,11 +5,13 @@
         <!-- Product Header -->
         <div class="productHeader w-full mb-4">
             <h1
-                class="title text-2xl text-text dark:text-textDark font-semibold"
+                class="title text-xl md:text-2xl text-text dark:text-textDark font-semibold"
             >
                 Classic High-Waisted Athletic Shorts
             </h1>
-            <div class="ratingsAndSid flex mt-2 divide-x divide-gray-300">
+            <div
+                class="ratingsAndSid grid md:flex mt-2 md:divide-x divide-gray-300"
+            >
                 <div
                     class="ratings flex items-center w-fit mr-5 text-text dark:text-textDark"
                 >
@@ -30,7 +32,7 @@
                     </div>
                     (3 Reviews)
                 </div>
-                <div class="sid pl-5 text-text dark:text-textDark">
+                <div class="sid md:pl-5 text-text dark:text-textDark">
                     SID: RE423490
                 </div>
             </div>
@@ -55,43 +57,35 @@
                         alt=""
                     />
                 </div>
-                <div class="silderWraper relative w-full">
+                <div
+                    class="sliderButtonWraper w-72 m-auto md:w-full relative"
+                    v-carousel-slide
+                >
                     <div
-                        ref="sliderButtonWraper"
-                        :class="isSlideActive ? '' : 'justify-center'"
-                        class="sliderButtonWraper w-80 md:w-full overflow-x-auto scroll-smooth [&::-webkit-scrollbar]:h-0 flex flex-nowrap"
+                        class="sliderButtonContainer flex flex-nowrap gap-2 overflow-x-auto scroll-smooth [&::-webkit-scrollbar]:h-0"
                     >
-                        <div
-                            ref="sliderButtonContainer"
-                            class="sliderButtonContainer w-auto flex gap-2"
+                        <button
+                            v-for="i in 8"
+                            ref="slideButton"
+                            class="slideButton min-w-16 size-16 group overflow-hidden rounded-sm border cursor-pointer hover:bg-accent hover:border-accent focus:bg-accent focus:border-accent"
                         >
-                            <button
-                                v-for="i in 6"
-                                ref="slideButton"
-                                class="slideButton size-16 group overflow-hidden rounded-sm border cursor-pointer hover:bg-accent hover:border-accent focus:bg-accent focus:border-accent"
-                            >
-                                <img
-                                    class="aspect-square object-cover group-hover:opacity-75 group-focus:opacity-75"
-                                    src="https://gofresh.com.kw/wp-content/uploads/2023/10/pink-guava-1.jpg"
-                                    alt=""
-                                />
-                            </button>
-                        </div>
+                            <img
+                                class="aspect-square object-cover group-hover:opacity-75 group-focus:opacity-75"
+                                src="https://gofresh.com.kw/wp-content/uploads/2023/10/pink-guava-1.jpg"
+                                alt=""
+                            />
+                        </button>
                     </div>
 
                     <div
-                        @click="scrollRight(buttonWidth)"
-                        :class="isSlideActive ? 'block' : 'hidden'"
-                        class="scrollRight absolute -right-3 top-1/2 cursor-pointer transform -translate-y-1/2 p-2 bg-gray-800/30 text-black rounded-full"
-                    >
-                        <Icon icon="icon-park-outline:right" />
-                    </div>
-                    <div
-                        @click="scrollLeft(buttonWidth)"
-                        :class="isSlideActive ? 'block' : 'hidden'"
-                        class="scrollLeft absolute -left-3 top-1/2 cursor-pointer transform -translate-y-1/2 p-2 bg-gray-800/30 text-black rounded-full"
+                        class="scrollBtn slideLeft absolute -left-3 top-1/2 cursor-pointer transform -translate-y-1/2 p-2 bg-gray-800/30 text-black rounded-full"
                     >
                         <Icon icon="icon-park-outline:left" />
+                    </div>
+                    <div
+                        class="scrollBtn slideRight absolute -right-3 top-1/2 cursor-pointer transform -translate-y-1/2 p-2 bg-gray-800/30 text-black rounded-full"
+                    >
+                        <Icon icon="icon-park-outline:right" />
                     </div>
                 </div>
             </div>
@@ -188,7 +182,8 @@
                     <div class="quantityAndWishlist my-4 flex gap-4">
                         <!-- Quantity -->
                         <!-- <label class="font-semibold" for="">Quantity: </label> -->
-                        <div
+
+                        <!-- <div
                             class="quantityCounter w-28 h-8 p-1 flex justify-between items-center rounded-lg border-2 border-border dark:border-borderDark text-xl shadow-sm"
                         >
                             <button
@@ -212,7 +207,13 @@
                                     class="text-base text-text dark:text-textDark"
                                 />
                             </button>
-                        </div>
+                        </div> -->
+
+                        <QuantitySelector
+                            v-model="productQuantity"
+                            :minQuantity="1"
+                            :maxQuantity="20"
+                        />
 
                         <!-- Wishlist -->
                         <div class="wishlistSection">
@@ -231,7 +232,7 @@
                     <!-- AddToCartAndBuyNow -->
                     <div class="addToCartAndBuyNow grid grid-cols-2 gap-4">
                         <button
-                            class="addToCartBtn h-10 px-3 flex gap-2 text-md justify-center items-center rounded-md bg-accent dark:bg-accentDark hover:bg-accentHover dark:hover:bg-accent/70 border border-accent dark:border-accentDark text-textDark"
+                            class="addToCartBtn h-10 md:px-3 flex gap-2 text-sm md:text-md font-semibold md:font-normal justify-center items-center rounded-md bg-accent dark:bg-accentDark hover:bg-accentHover dark:hover:bg-accent/70 border border-accent dark:border-accentDark text-textDark"
                         >
                             <Icon icon="mdi:cart" />
                             <span>ADD TO CART</span>
@@ -317,7 +318,8 @@
 
 <script setup>
 import { Icon } from "@iconify/vue/dist/iconify.js";
-import { ref, onUpdated } from "vue";
+import { ref } from "vue";
+import QuantitySelector from "../components/app/layout/quantitySelector/QuantitySelector.vue";
 
 const days = ref(0);
 const hours = ref(0);
@@ -344,33 +346,4 @@ const sizes = {
 };
 
 const count = ref(1);
-
-const sliderButtonWraper = ref();
-const slideButton = ref();
-let buttonWidth = 0;
-
-const sliderButtonContainer = ref();
-let isSlideActive = false;
-
-const scrollRight = (e) => {
-    if (sliderButtonWraper.value) {
-        sliderButtonWraper.value.scrollLeft += e;
-    }
-};
-const scrollLeft = (e) => {
-    if (sliderButtonWraper.value) {
-        sliderButtonWraper.value.scrollLeft -= e;
-    }
-};
-
-onUpdated(() => {
-    buttonWidth = slideButton.value[0].offsetWidth + 9;
-
-    if (
-        sliderButtonContainer.value.offsetWidth >=
-        sliderButtonWraper.value.offsetWidth
-    ) {
-        isSlideActive = true;
-    }
-});
 </script>
