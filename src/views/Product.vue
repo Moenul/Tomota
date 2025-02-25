@@ -181,38 +181,10 @@
                     <!-- Quantity & Wishlist Section -->
                     <div class="quantityAndWishlist my-4 flex gap-4">
                         <!-- Quantity -->
-                        <!-- <label class="font-semibold" for="">Quantity: </label> -->
-
-                        <!-- <div
-                            class="quantityCounter w-28 h-8 p-1 flex justify-between items-center rounded-lg border-2 border-border dark:border-borderDark text-xl shadow-sm"
-                        >
-                            <button
-                                @click="count--"
-                                class="incrementDecrementBtn size-6 flex justify-center items-center rounded-md bg-textDark dark:bg-primaryDark cursor-pointer"
-                            >
-                                <Icon
-                                    icon="tabler:minus"
-                                    class="text-base text-text dark:text-textDark"
-                                />
-                            </button>
-                            <div class="counter text-text dark:text-textDark">
-                                {{ count }}
-                            </div>
-                            <button
-                                @click="count++"
-                                class="incrementDecrementBtn size-6 flex justify-center items-center rounded-md bg-textDark dark:bg-primaryDark cursor-pointer"
-                            >
-                                <Icon
-                                    icon="tabler:plus"
-                                    class="text-base text-text dark:text-textDark"
-                                />
-                            </button>
-                        </div> -->
-
                         <QuantitySelector
                             v-model="productQuantity"
                             :minQuantity="1"
-                            :maxQuantity="20"
+                            :maxQuantity="6"
                         />
 
                         <!-- Wishlist -->
@@ -346,4 +318,6 @@ const sizes = {
 };
 
 const count = ref(1);
+
+const productQuantity = ref(1);
 </script>

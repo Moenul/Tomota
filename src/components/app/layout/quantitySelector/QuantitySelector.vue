@@ -26,7 +26,7 @@
     </div>
 </template>
 <script setup>
-import { ref, computed } from "vue";
+import { computed } from "vue";
 import { Icon } from "@iconify/vue/dist/iconify.js";
 
 const props = defineProps({
